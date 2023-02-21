@@ -1,7 +1,6 @@
 class Gpt
     def initialize
         @client = OpenAI::Client.new
-        @count = 0
     end
 
     def self.run
@@ -9,10 +8,7 @@ class Gpt
     end
 
     def start
-        if @count == 0
-            puts "\n What would you like to ask GPT-3? Type 'exit' to quit. \n".green
-            @count += 1
-        end
+        puts "\n What would you like to ask GPT-3? Type 'exit' to quit. \n".green
         ask_gpt
     end
 
@@ -22,12 +18,16 @@ class Gpt
         user_input = gets.chomp
         
         if user_input == "exit"
-            puts "Goodbye!"
-            exit
+            end_app
         else
             response(user_input)
-            start
+            ask_gpt
         end
+    end
+
+    def end_app
+        puts "Goodbye!"
+        exit
     end
 
     def response(user_input)
